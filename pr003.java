@@ -140,7 +140,10 @@ class  pr003 {
                 }
 
 		//Бесконечный цикл
-		//for(;;);
+		for(;;){
+			ch = (char)System.in.read();
+			if (ch == 'q') break;
+		}
 
 		int sum = 0;
 		for(i8 = 1; i8 <= 5;sum+=i8++);
@@ -165,9 +168,10 @@ class  pr003 {
 			}
 			System.out.println("Два в степени " + i9 + " равно " + result);
 		}
+
 		//Цикл ду-вайл
 		//
-	
+
 		do {
 			System.out.print("Нажмите клавишу, затем ENTER: ");
 			ch = (char)System.in.read();
@@ -175,5 +179,28 @@ class  pr003 {
 				ignore = (char)System.in.read();
 			}while(ignore!= '\n' );
 		}while(ch!='q');
+		//operator break
+		//
+		for(x1 = 100; x1>-100; x1-=5){
+                        System.out.print(" "+ x1);
+			if(x1 == 50) {
+				System.out.println();
+				break;
+			}
+                }
+		
+		//break c dkj;tysvb wbrkfvb
+		//
+		for(int i10 = 0; i10<3;i10++){
+			System.out.println("Внешний цикл: " + i10);
+			int t = 0;
+			System.out.print(" Внутренний цикл: ");
+			while(t < 100){
+				if (t == 10) break;
+				System.out.print(t + " ");
+				t++;
+			}
+			System.out.println();
+		}
 	}
 }
