@@ -8,13 +8,15 @@ class Help {
 			System.out.println("3. for");
 			System.out.println("4. while");
 			System.out.println("5. do-while");
-                	System.out.println("Выберите номер раздела: ");
+			System.out.println("6. break");
+			System.out.println("7. continue");
+			System.out.println("Выберите номер раздела (для выхода 'q'): ");
 
                 	choice = (char) System.in.read();
 			do{
 				ignore = (char)System.in.read();
 			}while(ignore!='\n');
-		
+
 
                 System.out.println("\n");
                 switch(choice) {
@@ -50,10 +52,20 @@ class Help {
                                 System.out.println("\t[тело цикла]");
                                 System.out.println("}while([выражение]);");
                                 break;
-				
+
+			case '6':
+                                System.out.println("Оператор break\n");
+                                System.out.println("\tbreak [имя метки];\n");
+                                break;
+			
+			case '7':
+                                System.out.println("Оператор continue\n");
+                                System.out.println("\tcontinue [имя метки];\n");
+                                break;
                         default:
                                 System.out.println("Неверный выбор раздела");
 		}
-		}while(choice<'1'|choice>'5');
+		}while((choice<'1'|choice>'7')&(choice!='q'));
+
 	}
 }
