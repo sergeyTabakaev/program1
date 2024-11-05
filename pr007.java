@@ -14,21 +14,26 @@ class Mod {
 
 class Block{
 	int a, b, c, V;
+
 	Block(int i, int j, int k){
 		a = i; b = j; c = k;
 		V = a*b*c;
 	}
+
 	boolean sameBlock(Block ob){
 		if ((a == ob.a)&(b == ob.b)&(c == ob.c))
 			return true;
 		return false;
 	}
+
 	boolean sameV(Block ob){
                 if (V == ob.V)
                         return true;
                 return false;
         }
+
 }
+
 class FailSoftArray {
 	private int a[], errval;
 	public int length;
@@ -64,8 +69,10 @@ class CallByValue {
 		j = -j;      	
 	}
 }
+
 class CallByRef {
 	int a, b;
+
 	CallByRef (int i, int j){
 		a = i; b = j;
 	}
@@ -74,6 +81,7 @@ class CallByRef {
 		b = -ob.b;
 	}
 }
+
 class ErrorMsg {
 	String msg[] = {
 		"Output error",
@@ -81,21 +89,24 @@ class ErrorMsg {
 		"Disk overflow",
 		"Index out of range"
 	};
+
 	String getErrorMsg (int err_num){
 		if(err_num >= 0 & err_num < msg.length) 
 			return msg[err_num];
 		return "Error code missing";
 	}
 }
+
 class Err {
 	String msg;	//Error message
 	int severity;	//Level of error's badness
-	
+
 	Err (String m, int s){
 		msg = m;
 		severity = s;
 	}
 }
+
 class ErrorInfo {
 	String msg[] = {
                 "Output error",
@@ -103,12 +114,42 @@ class ErrorInfo {
                 "Disk overflow",
                 "Index out of range"
         };
+
 	int howBad[] = {3, 3, 2, 4};
+
 	Err getErrorInfo (int err_code) {
 		if (err_code >= 0 & err_code < msg.length)
 			return new Err(msg[err_code], howBad[err_code]);
 		return new Err("Error code missing", 0);
 	}
+}
+
+class Overload {
+	void method() {
+		System.out.println("No parameters");
+	}
+	void method(int a) {
+		System.out.println("One integer parameter: " + a);
+	}
+	int method(int a, int b){
+		System.out.println("Two integer parameters: (" + a + ", " + b + ")");
+		return a + b;
+	}
+	double method(double a, double b){
+		System.out.println("Two floating point parameters: (" + a + ", " + b + ")");
+		return a - b;
+	}
+}
+class Overload_2_Empire_Strikes_Back {
+	void f(int x){
+		System.out.println("f(int): " + x);
+	}
+	void f(double x){
+                System.out.println("f(double): " + x);
+        }
+	void f(byte x){
+                System.out.println("f(byte): " + x);
+        }
 }
 public class pr007 {
 	public static void main(String args[]){
@@ -153,39 +194,70 @@ public class pr007 {
                         if(x != -999) System.out.print(x + " ");
                         else System.out.println("Index (" + i + ") out of range");
                 }
-		
+
 		System.out.println("\n\nExample of using method's which accept objects of this class as input");
 		Block ob1 = new Block(10,2,5);
 		Block ob2 = new Block(10,2,5);
 		Block ob3 = new Block(4,5,5);
+
 		System.out.println("ob1 == ob2 by sides:  " + ob1.sameBlock(ob2));
 		System.out.println("ob1 == ob3 by sides:  " + ob1.sameBlock(ob3));
 		System.out.println("ob1 == ob3 by volume: " + ob1.sameV(ob3));
-				
+
 		System.out.println("\n\nExample of using method's which accept paramaters by value");
-		
+
 		CallByValue ob4 = new CallByValue();
 		int a = 15, b = 20;
-		
+
 		System.out.print("Call by value: a, b = (" + a + ", " + b + ") => (");
 		ob4.noChange(a, b);
 		System.out.println(a + ", " + b + ")");
+
 		System.out.println("\n\nExample of using method's which accept paramaters by referal");
+
 		CallByRef ob5 = new CallByRef(15, 20);
 		System.out.print("Call by ref  : a, b = (" + ob5.a + ", " + ob5.b + ") => (");
                 ob5.isChanged(ob5);
                 System.out.println(ob5.a + ", " + ob5.b + ")");
+
 		System.out.println("\n\nExample of using a method that return a String value");
-		
+
 		ErrorMsg err = new ErrorMsg();
 		System.out.println("Error message under code '2':  " + err.getErrorMsg(2));
 		System.out.println("Error message under code '20': " + err.getErrorMsg(20));
+
 		System.out.println("\n\nExample of using a method that returns an object of a class identified in the programm");
-		
+
 		ErrorInfo err2 = new ErrorInfo();
 		Err e1 = err2.getErrorInfo(2), e2 = err2.getErrorInfo(20);
+
 		System.out.println("Error message|severity  under code '2':  " + e1.msg + " | " + e1.severity);
                 System.out.println("Error message|severity  under code '20': " + e2.msg + " | " + e2.severity);
 
+		System.out.println("\n\nExample of using method overload");
+		Overload ob6 = new Overload();
+		ob6.method();
+		ob6.method(2);
+		int resI = ob6.method(4, 6); System.out.println("Integer result: " + resI);
+		double resD = ob6.method(5.1, 3.5); System.out.println("Double result:  " + resD);
+		System.out.println("\n\nExample of type conversion affecting method overload");
+		
+		Overload_2_Empire_Strikes_Back ob7 = new Overload_2_Empire_Strikes_Back();
+		int valI = 10;
+		double valD = 10.1;
+		byte valB = 99;
+		short valS = 12;
+		float valF = 11.5F;
+		System.out.println("\nTrying int: ");
+		ob7.f(valI);
+		System.out.println("\nTrying double: ");
+		ob7.f(valD);
+		System.out.println("\nTrying byte: ");
+		ob7.f(valB);
+		System.out.println("\nTrying short: ");
+		ob7.f(valS);
+		System.out.println("\nTrying float: ");
+		ob7.f(valF);
+			
 	}
 }
