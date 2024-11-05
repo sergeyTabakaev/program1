@@ -128,28 +128,65 @@ class Overload {
 	void method() {
 		System.out.println("No parameters");
 	}
+
 	void method(int a) {
 		System.out.println("One integer parameter: " + a);
 	}
+
 	int method(int a, int b){
 		System.out.println("Two integer parameters: (" + a + ", " + b + ")");
 		return a + b;
 	}
+
 	double method(double a, double b){
 		System.out.println("Two floating point parameters: (" + a + ", " + b + ")");
 		return a - b;
 	}
 }
+
 class Overload_2_Empire_Strikes_Back {
 	void f(int x){
 		System.out.println("f(int): " + x);
 	}
+
 	void f(double x){
                 System.out.println("f(double): " + x);
         }
+
 	void f(byte x){
                 System.out.println("f(byte): " + x);
         }
+}
+
+class Overload_3_Return_of_the_Jedi {
+	int x;
+	Overload_3_Return_of_the_Jedi(){
+		System.out.println("No parameters");
+		x = 0;
+	}
+	Overload_3_Return_of_the_Jedi(int a){
+                 System.out.println("One integer parameter");
+                 x = a;
+        }
+	Overload_3_Return_of_the_Jedi(double d){
+                 System.out.println("One double parameter");
+                 x = (int)(d);
+	}
+	Overload_3_Return_of_the_Jedi(int a, int b){
+		System.out.println("Two integer parameters");
+                x = a*b;
+        }
+}
+class Summation {
+	int sum;
+	Summation (int num) {
+		sum = 0;
+		for(int i = 1; i<= num; i++)
+			sum += i;
+	}
+	Summation (Summation ob) {
+		sum = ob.sum;
+	}
 }
 public class pr007 {
 	public static void main(String args[]){
@@ -235,19 +272,23 @@ public class pr007 {
                 System.out.println("Error message|severity  under code '20': " + e2.msg + " | " + e2.severity);
 
 		System.out.println("\n\nExample of using method overload");
+
 		Overload ob6 = new Overload();
+
 		ob6.method();
 		ob6.method(2);
 		int resI = ob6.method(4, 6); System.out.println("Integer result: " + resI);
 		double resD = ob6.method(5.1, 3.5); System.out.println("Double result:  " + resD);
+
 		System.out.println("\n\nExample of type conversion affecting method overload");
-		
+
 		Overload_2_Empire_Strikes_Back ob7 = new Overload_2_Empire_Strikes_Back();
 		int valI = 10;
-		double valD = 10.1;
-		byte valB = 99;
-		short valS = 12;
-		float valF = 11.5F;
+		double valD = 11.0;
+		byte valB = 12;
+		short valS = 13;
+		float valF = 14.0F;
+
 		System.out.println("\nTrying int: ");
 		ob7.f(valI);
 		System.out.println("\nTrying double: ");
@@ -258,6 +299,23 @@ public class pr007 {
 		ob7.f(valS);
 		System.out.println("\nTrying float: ");
 		ob7.f(valF);
-			
+		
+		System.out.println("\n\nExample of using object creating method overload");
+		Overload_3_Return_of_the_Jedi t1 = new Overload_3_Return_of_the_Jedi();
+		Overload_3_Return_of_the_Jedi t2 = new Overload_3_Return_of_the_Jedi(11);
+		Overload_3_Return_of_the_Jedi t3 = new Overload_3_Return_of_the_Jedi(12.0);
+		Overload_3_Return_of_the_Jedi t4 = new Overload_3_Return_of_the_Jedi(13, 14);
+		System.out.println("t1.x = " + t1.x);
+		System.out.println("t2.x = " + t2.x);
+		System.out.println("t3.x = " + t3.x);
+		System.out.println("t4.x = " + t4.x);
+		System.out.println("\n\nExample of creating class object with another object of same class");
+		
+		Summation s1 = new Summation(5);
+		Summation s2 = new Summation(s1);
+		
+		System.out.println("s1.sum = " + s1.sum);
+		System.out.println("s2.sum = " + s2.sum);
+	
 	}
 }
